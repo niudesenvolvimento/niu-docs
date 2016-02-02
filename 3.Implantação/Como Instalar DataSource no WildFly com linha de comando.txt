@@ -1,0 +1,23 @@
+
+// MYSQL \\
+*********** 
+1) Criar usuario [niu] no mysql (rodar dentro do mysql): 
+grant all privileges on *.* to 'niu'@'localhost' identified by 'Niu#123'
+
+
+2) Criar database [db_niu] (rodar dentro do mysql):
+create database db_niu
+
+
+3) Criar usuario [admin/sas] no WildFly (rodar no DOS em WildFly/bin) :
+add-user.bat
+ 
+ 
+3) Criar datasource no WildFly (rodar dentro jboss-cli) > copiar primeiro jar para c:\temp:
+
+module add --name=com.mysql --resources=c:\temp\mysql-connector-java-5.1.36-bin.jar --dependencies=javax.api,javax.transaction.api
+ 
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name="mysql",driver-module-name="com.mysql",driver-class-name="com.mysql.jdbc.Driver")
+ 
+data-source add --jndi-name=java:/niuDS --name=MySQLPool --connection-url=jdbc:mysql://localhost/db_niu --driver-name=mysql --user-name=niu --password=niu123
+ 
